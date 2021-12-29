@@ -50,7 +50,7 @@ pipeline {
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
-        sh 'npm run cy:verify'
+        // sh 'npm run cy:verify'
 
         sh 'npm install cy2'
       }
