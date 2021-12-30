@@ -21,7 +21,7 @@ def on_locust_init(environment, **_kwargs):
      JtlListener(env=environment,  project_name="sorry-cypress",
                 scenario_name="locust test",
                 hostname="hostname",
-                backend_url="http://localhost:2020")
+                backend_url="http://jtl-reporter_listener_1:2020")
 
 
 class MainClassTest(HttpUser):
