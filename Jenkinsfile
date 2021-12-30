@@ -94,6 +94,16 @@ pipeline {
             sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
           }
         }
+
+        // third tester runs the same command
+        stage('tester C') {
+          steps {
+            echo "Running build ${env.BUILD_ID}"
+            //sh "npm run e2e:record:parallel"
+            //sh "cy2 run --record --key XXX --parallel --ci-build-id  ${env.BUILD_ID}"
+            sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
+          }
+        }
       }
 
     }
