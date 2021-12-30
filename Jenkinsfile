@@ -37,9 +37,9 @@ pipeline {
   agent {
     // this image provides everything needed to run Cypress
     docker {
-      image 'cypress/base:10'
-     // image 'sorry-cypress/included:9.1.1'
-     // args '-it --net external-network --entrypoint /bin/bash'
+     // image 'cypress/base:10'
+     image 'sorry-cypress/included:9.1.1'
+     args '-it --net external-network --entrypoint=/bin/bash'
     }
   }
 
@@ -51,10 +51,10 @@ pipeline {
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
-        sh 'npm run cy:verify'
+        //sh 'npm ci'
+        //sh 'npm run cy:verify'
 
-        sh 'npm install cy2'
+        //sh 'npm install cy2'
       }
     }
 
