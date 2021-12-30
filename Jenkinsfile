@@ -37,8 +37,14 @@ pipeline {
   agent none
 
   stages {
-    // first stage installs node dependencies and Cypress binary
+    
+
     stage('locust load tests') {
+      environment {
+        // we will be recording test results aon JTL Reporter
+        // to record we need to set an environment variable
+        JTL_API_TOKEN="at-c7b7fd97-5e5d-4264-a8df-7395ce4dde2c"
+      }
       agent {
     // this image provides everything needed to run Locust
     docker {
