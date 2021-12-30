@@ -34,23 +34,23 @@
 //    docker logs blue-ocean
 
 pipeline {
-  agent {
-    // this image provides everything needed to run Cypress
+  agent none
+
+  stages {
+    // first stage installs node dependencies and Cypress binary
+    stage('locust load tests') {
+      agent {
+    // this image provides everything needed to run Locust
     docker {
-     //image 'cypress/base:10'
      image 'sorry-cypress/included:9.1.1'
      args '-it --net external-network --entrypoint='
     }
   }
-
-  stages {
-    // first stage installs node dependencies and Cypress binary
-    stage('build') {
       steps {
         // there a few default environment variables on Jenkins
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        echo "Running Locust load tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         //sh 'npm ci'
         //sh 'npm run cy:verify'
 
@@ -61,6 +61,14 @@ pipeline {
     // this stage runs end-to-end tests, and each agent uses the workspace
     // from the previous stage
     stage('cypress parallel tests') {
+      agent {
+    // this image provides everything needed to run Sorry Cypress
+    docker {
+     //image 'cypress/base:10'
+     image 'sorry-cypress/included:9.1.1'
+     args '-it --net external-network --entrypoint='
+    }
+  }
       environment {
         // we will be recording test results and video on Cypress dashboard
         // to record we need to set an environment variable
@@ -78,7 +86,7 @@ pipeline {
         // will use Cypress Dashboard to load balance any found spec files
         stage('tester A') {
           steps {
-            echo "Running build ${env.BUILD_ID}"
+            echo "Running sorry-cypress parallel tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             //sh "npm run e2e:record:parallel"
             sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
             //sh "cy2 run --record --key XXX --parallel --ci-build-id  ${env.BUILD_ID}"
@@ -88,7 +96,7 @@ pipeline {
         // second tester runs the same command
         stage('tester B') {
           steps {
-            echo "Running build ${env.BUILD_ID}"
+            echo "Running sorry-cypress parallel tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             //sh "npm run e2e:record:parallel"
             //sh "cy2 run --record --key XXX --parallel --ci-build-id  ${env.BUILD_ID}"
             sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
@@ -98,7 +106,7 @@ pipeline {
         // third tester runs the same command
         stage('tester C') {
           steps {
-            echo "Running build ${env.BUILD_ID}"
+            echo "Running sorry-cypress parallel tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             //sh "npm run e2e:record:parallel"
             //sh "cy2 run --record --key XXX --parallel --ci-build-id  ${env.BUILD_ID}"
             sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
