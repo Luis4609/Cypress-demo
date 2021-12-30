@@ -61,14 +61,7 @@ pipeline {
     // this stage runs end-to-end tests, and each agent uses the workspace
     // from the previous stage
     stage('cypress parallel tests') {
-      agent {
-    // this image provides everything needed to run Sorry Cypress
-    docker {
-     //image 'cypress/base:10'
-     image 'sorry-cypress/included:9.1.1'
-     args '-it --net external-network --entrypoint='
-    }
-  }
+      
       environment {
         // we will be recording test results and video on Cypress dashboard
         // to record we need to set an environment variable
@@ -85,6 +78,14 @@ pipeline {
         // start several test jobs in parallel, and they all
         // will use Cypress Dashboard to load balance any found spec files
         stage('tester A') {
+          agent {
+    // this image provides everything needed to run Sorry Cypress
+    docker {
+     //image 'cypress/base:10'
+     image 'sorry-cypress/included:9.1.1'
+     args '-it --net external-network --entrypoint='
+    }
+  }
           steps {
             echo "Running sorry-cypress parallel tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             //sh "npm run e2e:record:parallel"
@@ -95,6 +96,14 @@ pipeline {
 
         // second tester runs the same command
         stage('tester B') {
+          agent {
+    // this image provides everything needed to run Sorry Cypress
+    docker {
+     //image 'cypress/base:10'
+     image 'sorry-cypress/included:9.1.1'
+     args '-it --net external-network --entrypoint='
+    }
+  }
           steps {
             echo "Running sorry-cypress parallel tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             //sh "npm run e2e:record:parallel"
@@ -105,6 +114,14 @@ pipeline {
 
         // third tester runs the same command
         stage('tester C') {
+          agent {
+    // this image provides everything needed to run Sorry Cypress
+    docker {
+     //image 'cypress/base:10'
+     image 'sorry-cypress/included:9.1.1'
+     args '-it --net external-network --entrypoint='
+    }
+  }
           steps {
             echo "Running sorry-cypress parallel tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             //sh "npm run e2e:record:parallel"
