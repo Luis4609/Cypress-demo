@@ -42,8 +42,8 @@ pipeline {
       agent {
     // this image provides everything needed to run Locust
     docker {
-     image 'sorry-cypress/included:9.1.1'
-     args '-it --net external-network --entrypoint='
+     image 'locustio/locust'
+     args '-it -f locustfile.py'
     }
   }
       steps {
