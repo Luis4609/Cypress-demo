@@ -43,7 +43,7 @@ pipeline {
     // this image provides everything needed to run Locust
     docker {
      image 'locustio/locust'
-     args '-it -f locustfile.py'
+     args '-it'
     }
   }
       steps {
@@ -51,10 +51,8 @@ pipeline {
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running Locust load tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        //sh 'npm ci'
-        //sh 'npm run cy:verify'
-
-        //sh 'npm install cy2'
+        
+        sh 'locust -f locustfile.py --headless --users 1 --spawn-rate 1 -t 20s -H https://id.wikipedia.org'
       }
     }
 
