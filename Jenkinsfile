@@ -43,7 +43,7 @@ pipeline {
     // this image provides everything needed to run Locust
     docker {
      image 'locustio/locust'
-     args '-it'
+     args '-it --entrypoint='
     }
   }
       steps {
@@ -53,7 +53,7 @@ pipeline {
         echo "Running Locust load tests with build ${env.BUILD_ID} on ${env.JENKINS_URL}"
 
         sh 'locust -f locustfile.py --headless --users 1 --spawn-rate 1 -t 20s -H https://id.wikipedia.org'
-        
+
       }
     }
 
