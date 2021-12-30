@@ -80,7 +80,7 @@ pipeline {
           steps {
             echo "Running build ${env.BUILD_ID}"
             //sh "npm run e2e:record:parallel"
-            sh "npx cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
+            sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
             //sh "cy2 run --record --key XXX --parallel --ci-build-id  ${env.BUILD_ID}"
           }
         }
@@ -91,7 +91,7 @@ pipeline {
             echo "Running build ${env.BUILD_ID}"
             //sh "npm run e2e:record:parallel"
             //sh "cy2 run --record --key XXX --parallel --ci-build-id  ${env.BUILD_ID}"
-            sh "npx cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
+            sh "cy2 run --record --key XXX --parallel --ci-build-id ${env.BUILD_ID}"
           }
         }
       }
