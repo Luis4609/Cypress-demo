@@ -37,9 +37,9 @@ pipeline {
   agent {
     // this image provides everything needed to run Cypress
     docker {
-     // image 'cypress/base:10'
-     image 'sorry-cypress/included:9.1.1'
-     args '-it --entrypoint=/bin/bash'
+     image 'cypress/base:10'
+     //image 'sorry-cypress/included:9.1.1'
+     //args '-it --entrypoint=/bin/bash'
     }
   }
 
