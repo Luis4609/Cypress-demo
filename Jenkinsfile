@@ -37,7 +37,8 @@ pipeline {
   agent {
     // this image provides everything needed to run Cypress
     docker {
-      image 'cypress/base:10'
+      image 'sorry-cypress/included:9.1.1'
+      args '-it --net external-network --entrypoint /bin/bash'
     }
   }
 
@@ -52,7 +53,7 @@ pipeline {
         sh 'npm ci'
         // sh 'npm run cy:verify'
 
-        sh 'npm install cy2'
+        //sh 'npm install cy2'
       }
     }
 
@@ -99,7 +100,7 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo 'Stopping local server'
-      sh 'pkill -f http-server'
+      //sh 'pkill -f http-server'
     }
   }
 }
